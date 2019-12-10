@@ -1,3 +1,4 @@
+import os
 from math import atan2
 
 with open('./input.txt') as _file:
@@ -191,25 +192,29 @@ def find_asteroids(point, asteroid_map):
   return found_asteroids
 
 
-def vaporize_asteroids(asteroid_list):
-  global asteroid_map
-  global vaporize_asteroids_count
-  for asteroid in asteroid_list:
-    (x, y) = split_point(asteroid)
-    if asteroid_map[y][x] == '#':
-      asteroid_map[y][x] = '.'
-      vaporize_asteroids_count += 1
-      if vaporize_asteroids_count == 200:
-        print(x * 100 + y)
-  print_asteroids()
+def vaporize_asteroids():
+  global asteroid_map, vaporize_asteroids_count, asteroid200
+  still_asteroids = True
+  while still_asteroids:
+    asteroid_list = find_asteroids('27|19', asteroid_map)
+    if len(asteroid_list) > 0:
+      for asteroid in asteroid_list:
+        (x, y) = split_point(asteroid)
+        if asteroid_map[y][x] == '#':
+          asteroid_map[y][x] = '.'
+          vaporize_asteroids_count += 1
+          if vaporize_asteroids_count == 200:
+            asteroid200 = x * 100 + y
+          print_asteroids()
+          os.system('cls' if os.name == 'nt' else 'clear')
+    else:
+      still_asteroids = False
 
 asteroid_map[19][27] = '@'
 
-print_asteroids()
-
 vaporize_asteroids_count = 0
-first_round = find_asteroids('27|19', asteroid_map)
-# print(first_round)
-vaporize_asteroids(first_round)
-print(vaporize_asteroids_count)
+
+vaporize_asteroids()
+print(f"200th Asteroid: {asteroid200}")
+print(f"Total Vaporized: {vaporize_asteroids_count}")
 
