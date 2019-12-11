@@ -175,6 +175,7 @@ def find_asteroids(point, asteroid_map):
     current_y = origin_y
     (dx, dy) = split_point(slope)
     in_bounds = True
+    # move by slope/dx,dy until out of bounds of the grid
     while in_bounds:
       current_x += dx
       current_y += dy
