@@ -1,3 +1,5 @@
+import os
+
 with open('./input.txt', 'r') as _file:
   strInputs = _file.read().split(',')
 
@@ -151,16 +153,24 @@ class PaintRobot:
         maxY = y
 
     painting = [['.' for _ in range(maxX + 1)] for _ in range(maxY + 1)]
+
+    def _print_painting():
+      os.system('cls' if os.name == 'nt' else 'clear')
+      for row in painting:
+        _row = []
+        for char in row:
+          _row.append(str(char))
+        print(" ".join(_row))
+
+    _print_painting()
+
     for position in self.painted_panels:
       (x, y) = self.split_point(position)
       paint = self.painted_panels[position]
       paint = '#' if paint == 1 else '.'
       painting[y][x] = paint
-    for row in painting:
-      _row = []
-      for char in row:
-        _row.append(str(char))
-      print(" ".join(_row))
+      _print_painting()
+
 
   def get_panel_color(self):
     x = self.positionX
