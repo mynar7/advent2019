@@ -3,11 +3,17 @@ europa_position = {'x': -12, 'y': -3, 'z': -4}
 ganymede_position = {'x': 6, 'y': -17, 'z': -9}
 callisto_position = {'x': 4, 'y': -10, 'z': -6}
 
-# EXAMPLE DATA SET
+# # EXAMPLE DATA SET 1
 # io_position = {'x': -1, 'y': 0, 'z': 2}
 # europa_position = {'x': 2, 'y': -10, 'z': -7}
 # ganymede_position = {'x': 4, 'y': -8, 'z': 8}
 # callisto_position = {'x': 3, 'y': 5, 'z': -1}
+
+# # EXAMPLE DATA SET 2
+# io_position = {'x': -8, 'y': -10, 'z': 0}
+# europa_position = {'x': 5, 'y': 5, 'z': 10}
+# ganymede_position = {'x': 2, 'y': -7, 'z': 3}
+# callisto_position = {'x': 9, 'y': -8, 'z': -3}
 
 moons = {
   'io': {
@@ -73,11 +79,52 @@ def get_total_system_energy():
     energy += potential_energy * kinetic_energy
   return energy
 
-for _ in range(1000):
-  update_velocity()
-  update_position()
+def snapshot_system_axis(axis):
+  assert axis in ['x', 'y', 'z']
+  state = ""
+  for index, moon in enumerate(moons):
+    state += f"{moon}: "
+    state += f"p{axis}: {moons[moon]['position'][axis]}, "
+    state += f"v{axis}: {moons[moon]['velocity'][axis]}"
+    if index != len(moons) - 1:
+      state += ' | '
+  return state
 
+def get_sequence(axis):
+  assert axis in ['x', 'y', 'z']
+  positions = {}
+  positions[snapshot_system_axis(axis)] = 0
+  steps = 0
 
-print_moons()
-print(get_total_system_energy())
+  while True:
+    update_velocity()
+    update_position()
+    snapshot = snapshot_system_axis(axis)
+    steps += 1
+    if snapshot in positions:
+      return steps - positions[snapshot]
+
+    positions[snapshot] = steps
+
+stepsX = get_sequence('x')
+stepsY = get_sequence('y')
+stepsZ = get_sequence('z')
+
+print(f"Steps X: {stepsX}")
+print(f"Steps Y: {stepsY}")
+print(f"Steps Z: {stepsZ}")
+
+def get_gcd(a, b):
+  while a != b:
+    if a > b:
+      a = a - b
+    else:
+      b = b - a
+  return a
+
+def get_lcm(a, b):
+  return (a * b) // get_gcd(a, b)
+
+print(get_lcm(stepsX, get_lcm(stepsY, stepsZ)))
+
 
