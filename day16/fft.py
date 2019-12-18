@@ -7,29 +7,21 @@ with open('./input.txt') as _file:
 # input_string = "69317163492948606335995924319873" # Should output 52432133
 
 signal = [int(char) for char in input_string]
-# print(signal)
 base_pattern = [0, 1, 0, -1]
 
 phases = 100
-# phases = 4
+# phases = 1
 
-# loop phases
-for i in range(1, phases + 1):
+signal_length = len(signal)
+for _ in range(phases):
   new_signal = []
-  # in 5346: 1, then 2, then 3
-  for signal_digit in range(1, len(signal) + 1):
+  for i in range(signal_length):
     new_value = 0
-    # make phase pattern for this digit
-    phase_pattern = []
-    for j in range(len(base_pattern)):
-      phase_pattern_number = base_pattern[j]
-      for _ in range(signal_digit):
-        phase_pattern.append(phase_pattern_number)
-    # loop over entire signal for this digit in the phase
-    for index, num in enumerate(signal):
-      phase_index = (index + 1) % len(phase_pattern)
-      phase_value = phase_pattern[phase_index]
-      new_value += num * phase_value
+    for j in range(i, signal_length):
+      base_pattern_index = (j + 1) // (i + 1) % len(base_pattern)
+      # print(base_pattern[base_pattern_index])
+      phase_value = base_pattern[base_pattern_index]
+      new_value += signal[j] * phase_value
     new_signal.append(abs(new_value) % 10)
   signal = new_signal
 
