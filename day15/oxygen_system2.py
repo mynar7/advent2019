@@ -140,18 +140,15 @@ next_position = [0, 0]
 prev_position = [0, 0]
 tank_location = None
 tank_found = False
-prev_move_result = None
 greatest_path_length = 0
 steps_to_reach_tank = 0
 finding_oxygen_paths = False
 
 def outputter(code):
-  global tank_location, prev_move_result, tank_found
+  global tank_location, tank_found
   if code == 0:
-    prev_move_result = 'WALL'
     walls.add(make_point_string(next_position))
   if code == 1 or code == 2:
-    prev_move_result = 'MOVED'
     pt_string = make_point_string(next_position)
     if pt_string not in deadends:
       paths.add(pt_string)
