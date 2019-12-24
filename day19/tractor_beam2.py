@@ -162,6 +162,7 @@ while not found_square_top_left:
       if bottom_left_in_beam:
         found_square_top_left = True
         print(x * 10000 + y)
+        break
       x += 1
       right_side_in_beam = detect_beam(x + 99, y)
     y += 1

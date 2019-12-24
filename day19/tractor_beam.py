@@ -165,5 +165,7 @@ def outputter(beam_detected):
     grid[y][x % 50] = '#'
     print_beam()
 
-for _ in range(50 * 50):
+for i in range(50 * 50):
   intcode(inputs.copy(), inputter, outputter)
+  # if i % 50 == 0:
+  #   print_beam()
