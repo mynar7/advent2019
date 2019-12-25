@@ -58,6 +58,7 @@ run
 # or t j
 # and d j
 
+# state of jump saved in J from pt1
 # make T true if going to jump
 # T = D and (!C or !B or !A) or T
 # or j t
