@@ -1,0 +1,75 @@
+# part 1 guess
+# not c t
+# and d t
+# not a j
+# or t j
+# WALK
+
+# part 1
+# not a j
+# not b t
+# or t j
+# not c t
+# or t j
+# and d j
+# walk
+
+# part 1 explained
+
+# J = !A
+# not a j
+
+# T = !B
+# not b t
+
+# J = T or J
+# J = !B or !A
+# or t j
+
+# T = !C
+# not c t
+
+# J = T or J
+# J = !C or (!B or !A)
+# or t j
+
+# J = D and (!C or !B or !A)
+# and d j
+
+# part 2
+not a j
+not b t
+or t j
+not c t
+or t j
+and d j
+or j t
+and e t
+or h t
+and t j
+run
+
+
+# part 2 explained, first portion same as pt 1
+# not a j
+# not b t
+# or t j
+# not c t
+# or t j
+# and d j
+
+# make T true if going to jump
+# T = D and (!C or !B or !A) or T
+# or j t
+
+# T is true if E is true
+# T = E and T
+# and e t
+
+# T = E or T
+# T = True if E true or H true
+# or h t
+
+# J = D and (!C or !B or !A) and (E or H)
+# and t j
+# run
