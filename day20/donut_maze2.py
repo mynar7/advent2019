@@ -37,14 +37,14 @@ def add_portal(x, y, portal_letter):
   is_top_outer_portal = y == 0
   is_top_inner_portal = (
       y < maze_height // 2 and y > 1 and
-      x > 1 and x < maze_height - 2 and
+      x > 1 and x < maze_width - 2 and
       lines[y - 1][x] == '.'
     )
 
   is_bottom_outer_portal = y == maze_height - 2
   is_bottom_inner_portal = (
       y > maze_height // 2 and y < maze_height - 2 and
-      x > 1 and x < maze_height - 2 and
+      x > 1 and x < maze_width - 2 and
       lines[y + 2][x] == '.'
     )
 

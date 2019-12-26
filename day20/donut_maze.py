@@ -43,7 +43,7 @@ def add_portal(x, y, portal_letter):
     # bottom inside donut
     (
       y > maze_height // 2 and y < maze_height - 2 and
-      x > 1 and x < maze_height - 2 and
+      x > 1 and x < maze_width - 2 and
       lines[y + 2][x] == '.'
     )
   ):
@@ -58,7 +58,7 @@ def add_portal(x, y, portal_letter):
     # top inside donut
     (
       y < maze_height // 2 and y > 1 and
-      x > 1 and x < maze_height - 2 and
+      x > 1 and x < maze_width - 2 and
       lines[y - 1][x] == '.'
     )
   ):
