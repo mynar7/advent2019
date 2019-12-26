@@ -5,7 +5,6 @@ input_file = './input.txt'
 with open(input_file) as _file:
   lines = _file.read().splitlines()
 
-maze = []
 walls = set()
 portals_dict_by_name = {}
 portals_dict = {}
@@ -29,21 +28,8 @@ def split_point_and_level(point_string):
   (x, y) = coords.split('|')
   return (int(x), int(y), int(level))
 
-for y, line in enumerate(lines):
-  line = list(line)
-  for x, char in enumerate(line):
-    if char == '#':
-      walls.add(make_point_string([x, y]))
-    else:
-      line[x] = ' '
-  maze.append(line)
-
-maze_width = len(maze[0])
-maze_height = len(maze)
-
-def print_maze():
-  for row in maze:
-    print(" ".join(row))
+maze_width = len(lines[0])
+maze_height = len(lines)
 
 def add_portal(x, y, portal_letter):
   global entrance_portal, exit_portal
@@ -133,17 +119,13 @@ def add_portal(x, y, portal_letter):
     else:
       inner_portals.add(portal_loc)
 
-  maze[y][x] = portal_letter
-  (x, y) = split_point(second_portal_letter_loc)
-  maze[y][x] = second_portal_letter
-  # (x, y) = split_point(portal_loc)
-  # maze[y][x] = '@'
-
 for y, line in enumerate(lines):
   line = list(line)
   for x, char in enumerate(line):
     if ord(char) >= 65 and ord(char) <= 90:
       add_portal(x, y, char)
+    if char == '#':
+      walls.add(make_point_string([x, y]))
 
 for first, second in portals_dict_by_name.values():
   portals_dict[first] = second
@@ -216,7 +198,6 @@ def find_exit(position):
 
   while exploring:
     # if paths is 0, end loop
-    # print(len(paths))
     if len(paths) == 0:
       break
     new_paths = {}
@@ -226,8 +207,6 @@ def find_exit(position):
       (x, y, level) = split_point_and_level(pos_str)
       coords_string = make_point_string([x, y])
       # reached the end
-      # if coords_string == exit_portal:
-      #   print('YAHTZEE', level)
       if coords_string == exit_portal and level == 0:
         return len(coords_list)
 
