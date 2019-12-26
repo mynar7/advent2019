@@ -132,26 +132,29 @@ def intcode(program, inputMethod, outputMethod = print, index = 0):
 
 inputs = list(map(lambda str: int(str), strInputs))
 
-with open('./script.springcode') as _file:
-  spring_code = _file.read().splitlines()
 
-
-
-def springdroid():
+def springdroid(manual_input = False):
   output_string = ""
   input_list = []
   intcode_input_list = []
 
-  # command = None
-  # while command != 'WALK':
-  #   command_str = input('Enter Command:\n')
-  #   command = command_str.strip().upper()
-  #   input_list.append(list(command + '\n'))
-
-  for line in spring_code:
-    if line != "" and line[0] != '#':
-      command = line.strip().upper()
+  # Manual Input
+  if manual_input:
+    command = None
+    while command != 'WALK':
+      command_str = input('Enter Command:\n')
+      command = command_str.strip().upper()
       input_list.append(list(command + '\n'))
+
+  # Read from file
+  else:
+    with open('./script.springcode') as _file:
+      spring_code = _file.read().splitlines()
+
+    for line in spring_code:
+      if line != "" and line[0] != '#':
+        command = line.strip().upper()
+        input_list.append(list(command + '\n'))
 
   input_list.reverse()
 
@@ -167,13 +170,10 @@ def springdroid():
 
   def outputter(ascii_char):
     nonlocal output_string
-    if ascii_char > 255:
-      print(ascii_char)
-      return
-    output_string += chr(ascii_char)
+    output_string += str(ascii_char) if ascii_char > 255 else chr(ascii_char)
 
   intcode(inputs.copy(), inputter, outputter)
 
   print(output_string)
 
-springdroid()
+springdroid(manual_input=False)
