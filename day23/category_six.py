@@ -197,7 +197,6 @@ class NIC:
   intcode_dict = {}
   NAT = None
   NAT_y_values = set()
-  done = False
 
   def __init__(self):
     for i in range(50):
