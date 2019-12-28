@@ -1,0 +1,32 @@
+# get astrolabe, ornament, weather machine, food ration
+
+# get astrolabe and food ration
+south
+take food ration
+west
+north
+north
+east
+take astrolabe
+
+# return to start
+west
+south
+south
+east
+north
+
+# get weather machine, ornament
+east
+south
+take weather machine
+west
+take ornament
+
+# go to checkpoint
+east
+north
+east
+east
+east
+south

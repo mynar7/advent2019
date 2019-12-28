@@ -127,9 +127,19 @@ inputs = list(map(lambda str: int(str), strInputs))
 for _ in range(100000):
   inputs.append(0)
 
-def run_CYA_game():
+def run_CYA_game(manual_mode = False):
   output_string = ""
   user_input = []
+  script_input = []
+
+  with open('./commands.script') as _file:
+    commands = _file.read().splitlines()
+
+  for line in commands:
+    if line != "" and line[0] != '#':
+      command = line.strip().lower()
+      script_input.append(command)
+  script_input.reverse()
 
   def inputter():
     return user_input.pop()
@@ -139,7 +149,10 @@ def run_CYA_game():
     if ascii_value == 10:
       print(output_string)
       if output_string == 'Command?':
-        _user_input = input('\n')
+        if manual_mode or len(script_input) == 0:
+          _user_input = input('\n')
+        else:
+          _user_input = script_input.pop()
         _user_input = _user_input.strip().lower()
         _user_input = [ord(char) for char in list(_user_input)]
         _user_input.append(10)
