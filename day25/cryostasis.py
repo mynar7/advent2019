@@ -71,7 +71,6 @@ def getInputs(program, index, relative_base):
     # param1 = handleMode(int(modes[0]), param1, relative_base)
     return (parsedOpcode, param1, None, None)
 
-
 def intcode(program, inputMethod, outputMethod = print, index = 0):
   relative_base = 0
   while index >= 0:
@@ -137,8 +136,7 @@ def run_CYA_game(manual_mode = False):
 
   for line in commands:
     if line != "" and line[0] != '#':
-      command = line.strip().lower()
-      script_input.append(command)
+      script_input.append(line)
   script_input.reverse()
 
   def inputter():
@@ -165,4 +163,4 @@ def run_CYA_game(manual_mode = False):
 
   intcode(inputs, inputter, outputter)
 
-run_CYA_game()
+run_CYA_game(manual_mode=False)
