@@ -31,5 +31,5 @@ while pixelIndex < len(inputs):
 
 for row in image:
   for char in row:
-    print(char, end=" ")
+    print('#' if char == 1 else '.', end=" ")
   print('\r')
